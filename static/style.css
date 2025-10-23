@@ -1,0 +1,602 @@
+/* Energy Engineering Calculator Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+/* Header Styles */
+.header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Container and Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: grid;
+    gap: 2rem;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.card h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Form Elements */
+.conversion-group,
+.calc-group {
+    margin-bottom: 2rem;
+}
+
+.conversion-group h3,
+.calc-group h3 {
+    color: #666;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.input-group,
+.input-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+input {
+    padding: 0.75rem;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    font-size: 1rem;
+    flex: 1;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+input:invalid {
+    border-color: #e74c3c;
+}
+
+/* Buttons */
+button {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+/* Results */
+.result {
+    padding: 1rem;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 8px;
+    margin-top: 1rem;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #333;
+    border-left: 4px solid #667eea;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Examples Section */
+.examples {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.example-btn {
+    background: linear-gradient(45deg, #ffeaa7, #fdcb6e);
+    color: #333;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.example-btn:hover {
+    background: linear-gradient(45deg, #fdcb6e, #e17055);
+    color: white;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    color: white;
+    padding: 2rem;
+    opacity: 0.8;
+    margin-top: 2rem;
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+    color: transparent;
+}
+
+.loading::after {
+    content: 'Calculating...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #667eea;
+    font-weight: 600;
+}
+
+/* Error States */
+.error {
+    color: #e74c3c;
+    border-left-color: #e74c3c;
+    background: linear-gradient(135deg, #ffeaea, #ffd6d6);
+}
+
+/* Success States */
+.success {
+    color: #27ae60;
+    border-left-color: #27ae60;
+    background: linear-gradient(135deg, #eafaf1, #d5f4e6);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+    
+    .input-row {
+        flex-direction: column;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .card {
+        padding: 1.5rem;
+    }
+    
+    .examples {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 1rem;
+    }
+    
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .card {
+        padding: 1rem;
+    }
+    
+    button {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .card {
+        background: #2c3e50;
+        color: #ecf0f1;
+    }
+    
+    .card h2,
+    .card h3 {
+        color: #ecf0f1;
+    }
+    
+    input {
+        background: #34495e;
+        color: #ecf0f1;
+        border-color: #5d6d7e;
+    }
+    
+    input:focus {
+        border-color: #3498db;
+    }
+    
+    .result {
+        background: linear-gradient(135deg, #34495e, #2c3e50);
+        color: #ecf0f1;
+    }
+}
+
+/* Animation utilities */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.slide-up {
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Utility classes */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+
+/* Universal Converter Styles */
+.converter-interface {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+    margin: 1.5rem 0;
+}
+
+.converter-input, .converter-output {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+    border: 2px solid #e9ecef;
+    transition: border-color 0.3s ease;
+}
+
+.converter-input:hover, .converter-output:hover {
+    border-color: #667eea;
+}
+
+.converter-input h3, .converter-output h3 {
+    margin-bottom: 1rem;
+    color: #495057;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.unit-category, .unit-selector {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    background: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.unit-category:focus, .unit-selector:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.unit-selector:disabled {
+    background: #f8f9fa;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+.conversion-details {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 0 8px 8px 0;
+    animation: slideIn 0.3s ease;
+}
+
+.conversion-details.hidden {
+    display: none;
+}
+
+.conversion-formula {
+    font-family: 'Courier New', monospace;
+    color: #1565c0;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.conversion-factor {
+    color: #424242;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design for Converter */
+@media (max-width: 768px) {
+    .converter-interface {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .converter-output {
+        margin-top: 1rem;
+    }
+}
+
+/* Animation for slide-in effect */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Loading state for conversion */
+.result.loading::after {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #667eea;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Convert Button Styles */
+.converter-button {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.convert-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 3rem;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.convert-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.convert-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.convert-btn:disabled {
+    background: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Conversion Results Section */
+.conversion-results {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 2rem 0;
+    border: 2px solid #e9ecef;
+    animation: slideIn 0.4s ease-out;
+}
+
+.conversion-results.hidden {
+    display: none;
+}
+
+.conversion-results h3 {
+    color: #495057;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.result-display {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+.main-result {
+    text-align: center;
+}
+
+.result-value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 1.2rem;
+}
+
+.input-display {
+    color: #667eea;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.equals {
+    color: #6c757d;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.output-display {
+    color: #28a745;
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+.result-value .loading {
+    color: #667eea;
+    font-style: italic;
+}
+
+.result-value .error {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.conversion-details {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.conversion-details p {
+    margin: 0.5rem 0;
+}
+
+.conversion-factor {
+    font-family: 'Courier New', monospace;
+    background: #e9ecef;
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Animation for results section */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments for Convert button */
+@media (max-width: 768px) {
+    .convert-btn {
+        width: 100%;
+        padding: 1.2rem;
+        font-size: 1rem;
+    }
+    
+    .result-value {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .input-display, .output-display {
+        font-size: 1.1rem;
+    }
+}

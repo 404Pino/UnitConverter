@@ -1,0 +1,26 @@
+# Haskell
+dist/
+dist-newstyle/
+.stack-work/
+*.hi
+*.o
+*.exe
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Stack
+stack.yaml.lock
+
+# Temporary files
+*~
